@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Basket implements Serializable{
 
-    private Map<String, Item> itemsByProductId;
-    private List<Discount> discounts;
+    private final Map<String, Item> itemsByProductId;
+    private final List<Discount> discounts;
 
     public Basket() {
         itemsByProductId = new HashMap<>();
@@ -22,6 +22,9 @@ public class Basket implements Serializable{
         }
     }
 
+    public Product getProduct(String productId) {
+        return itemsByProductId.getOrDefault(productId, new Item()).getProduct();
+    }
     public int getQuantityOfProduct(String productId) {
         return itemsByProductId.getOrDefault(productId, new Item()).getQuantity();
     }

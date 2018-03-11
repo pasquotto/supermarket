@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Discount implements Serializable {
 
-    private Product product;
-    private double amount;
-    private String description;
+    private final Product product;
+    private final double amount;
+    private final String description;
 
     public Discount(Product product, double amount, String description) {
         this.product = product;
@@ -18,24 +18,12 @@ public class Discount implements Serializable {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     @Override

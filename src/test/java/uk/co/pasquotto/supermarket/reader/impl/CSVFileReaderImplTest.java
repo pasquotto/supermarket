@@ -30,15 +30,15 @@ public class CSVFileReaderImplTest {
         assertNotNull(products);
         assertEquals("A", products.get(0).getId());
         assertEquals("Apple", products.get(0).getName());
-        assertEquals(160D, products.get(0).getPrice(), 0.001D);
+        assertEquals(50D, products.get(0).getPrice(), 0.001D);
 
         assertEquals("B", products.get(1).getId());
         assertEquals("Banana", products.get(1).getName());
-        assertEquals(220D, products.get(1).getPrice(), 0.001D);
+        assertEquals(30D, products.get(1).getPrice(), 0.001D);
 
         assertEquals("C", products.get(2).getId());
         assertEquals("Carrot", products.get(2).getName());
-        assertEquals(75D, products.get(2).getPrice(), 0.001D);
+        assertEquals(20D, products.get(2).getPrice(), 0.001D);
     }
 
     @Test(expected = ProductFileNotFoundException.class)

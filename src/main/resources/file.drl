@@ -1,0 +1,87 @@
+import uk.co.pasquotto.supermarket.model.Basket;
+import uk.co.pasquotto.supermarket.model.Item;
+import uk.co.pasquotto.supermarket.model.Product;
+import uk.co.pasquotto.supermarket.model.Discount;
+import java.util.*;
+
+dialect  "mvel"
+
+rule "Product A 3 for 130"
+    when
+
+        $b : Basket( getQuantityOfProduct("A") >= 3);
+    then
+        $b.addDiscount(
+                new Discount($b.getProduct("A"),
+                        // 20p discount for every 3 products
+                        fixedDiscountPerQuantity($b.getQuantityOfProduct("A"), 3, 20),
+                        "3 for 130"
+        ));
+end
+
+rule "Product B 2 for 45"
+    when
+
+        $b : Basket( getQuantityOfProduct("B") >= 2);
+    then
+        $b.addDiscount(
+                new Discount($b.getProduct("A"),
+                        // 15p discount for every 2 products
+                        fixedDiscountPerQuantity($b.getQuantityOfProduct("B"), 2, 15),
+                        "2 for 45"
+        ));
+end
+
+
+rule "Apples 10% this week"
+    when
+        $b : Basket(getQuantityOfProduct("Apples") > 0);
+    then
+        $b.addDiscount(
+                new Discount($b.getProduct("Apples"),
+                        //calculating 10% off of all Apples
+                        discountOnPercent($b.getProduct("Apples").getPrice(), $b.getQuantityOfProduct("Apples"), 0.1),
+                        "10% off"
+        ));
+end
+
+rule "Half price on bread if buy 2 tin of Soup"
+    when
+        $b : Basket(getQuantityOfProduct("Soup") >= 2 && getQuantityOfProduct("Bread") >= 1);
+    then
+        $b.addDiscount(
+                new Discount($b.getProduct("Bread"),
+                        //calculating 10% off of all Apples
+                       dicountToOtherProduct($b.getQuantityOfProduct("Soup"), 2, $b.getQuantityOfProduct("Bread"), 40),
+                        "Bread half price for each 2 soups"
+        ));
+end
+
+
+// support functions
+
+function double dicountToOtherProduct(int product1QuantityQuantity, int product1Factor, int product2Quantity, int discountPerUnit) {
+    int soupByQuantity = (int)(product1QuantityQuantity / product1Factor);
+    double discount = 0D;
+    for (int i = 0; i < product2Quantity; i++) {
+        discount += discountPerUnit;
+        soupByQuantity--;
+        if(soupByQuantity == 0) break;
+    }
+    return discount;
+}
+
+/**
+* Calculates the discount over quantities of products, i.e. for each 3 apples there is a 20p discount, so if there
+* is 7 apples then the discount is 40p
+*/
+function double fixedDiscountPerQuantity(int quantityOfProduct, int quantity, double discount) {
+    return ((int)(quantityOfProduct/quantity))*discount;
+}
+
+/**
+* Calculates the discount in simple percentage, gets the unit price, multiply by the quantity of products and then take the percentage
+*/
+function double discountOnPercent(double unitPrice, int quantity, double percent) {
+    return unitPrice * quantity * percent;
+}
