@@ -15,7 +15,7 @@ Create a file called `application.properties` and add the following configuratio
 ## Product file CSV format
 This file contains all the products and it's unit price of the supermarket.
 
- | Product ID    | Product name | Unit Price (pence)  |
+ | id    | name | price  |
  | ------------- |--------------|---------------------|
  | A             | Apple        |                  160|
  | B             | Banana       |                  220|
