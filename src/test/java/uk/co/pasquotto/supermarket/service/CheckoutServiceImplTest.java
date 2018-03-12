@@ -11,6 +11,7 @@ import uk.co.pasquotto.supermarket.repositories.ProductRepository;
 import uk.co.pasquotto.supermarket.service.impl.CheckoutServiceImpl;
 import uk.co.pasquotto.supermarket.writer.BasketWriter;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,5 +49,7 @@ public class CheckoutServiceImplTest {
         verify(productRepository).getProductById("D");
         verify(basketCalculatorService).calculateDiscounts(basket);
         verify(basketWriter).write(basket);
+
+        assertEquals(3, basket.getQuantityOfProduct("A"));
     }
 }

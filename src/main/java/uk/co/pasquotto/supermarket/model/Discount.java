@@ -1,6 +1,7 @@
 package uk.co.pasquotto.supermarket.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Discount implements Serializable {
 
@@ -24,6 +25,22 @@ public class Discount implements Serializable {
 
     public double getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Discount discount = (Discount) o;
+        return Double.compare(discount.amount, amount) == 0 &&
+                Objects.equals(product, discount.product) &&
+                Objects.equals(description, discount.description);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(product, amount, description);
     }
 
     @Override

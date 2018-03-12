@@ -25,7 +25,7 @@ rule "Product B 2 for 45"
         $b : Basket( getQuantityOfProduct("B") >= 2);
     then
         $b.addDiscount(
-                new Discount($b.getProduct("A"),
+                new Discount($b.getProduct("B"),
                         // 15p discount for every 2 products
                         fixedDiscountPerQuantity($b.getQuantityOfProduct("B"), 2, 15),
                         "2 for 45"

@@ -35,9 +35,11 @@ public class CheckoutServiceImpl implements CheckoutService {
         Arrays.stream(productsId)
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
             .forEach((productId, quantity) -> {
-                Product p = this.productRepository.getProductById(productId);
-                if (p != null) {
-                    basket.add(p);
+                Product product = this.productRepository.getProductById(productId);
+                if (product != null) {
+                    for (int i = 0; i < quantity; i++) {
+                        basket.add(product);
+                    }
                 }
             });
         basketCalculatorService.calculateDiscounts(basket);

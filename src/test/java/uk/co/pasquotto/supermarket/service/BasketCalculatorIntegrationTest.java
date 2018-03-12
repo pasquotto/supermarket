@@ -5,9 +5,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.co.pasquotto.supermarket.model.*;
-import uk.co.pasquotto.supermarket.service.BasketCalculatorService;
-
+import uk.co.pasquotto.supermarket.model.Basket;
+import uk.co.pasquotto.supermarket.model.Discount;
+import uk.co.pasquotto.supermarket.model.Product;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,6 +41,7 @@ public class BasketCalculatorIntegrationTest {
 
 		assertEquals(1, basket.getDiscounts().size());
 		Discount discount = basket.getDiscounts().get(0);
+        assertEquals(product, discount.getProduct());
 		assertEquals(20D, discount.getAmount(), 0.01D);
 		assertEquals("3 for 130", discount.getDescription());
 	}
@@ -57,6 +58,7 @@ public class BasketCalculatorIntegrationTest {
 
 		assertEquals(1, basket.getDiscounts().size());
 		Discount discount = basket.getDiscounts().get(0);
+        assertEquals(product, discount.getProduct());
 		assertEquals(20D, discount.getAmount(), 0.01D);
 		assertEquals("3 for 130", discount.getDescription());
 	}
@@ -73,6 +75,7 @@ public class BasketCalculatorIntegrationTest {
 
 		assertEquals(1, basket.getDiscounts().size());
 		Discount discount = basket.getDiscounts().get(0);
+		assertEquals(product, discount.getProduct());
 		assertEquals(15D, discount.getAmount(), 0.01D);
 		assertEquals("2 for 45", discount.getDescription());
 	}
@@ -90,6 +93,7 @@ public class BasketCalculatorIntegrationTest {
 
 		assertEquals(1, basket.getDiscounts().size());
 		Discount discount = basket.getDiscounts().get(0);
+        assertEquals(product, discount.getProduct());
 		assertEquals(30D, discount.getAmount(), 0.01D);
 		assertEquals("10% off", discount.getDescription());
 	}
@@ -109,6 +113,7 @@ public class BasketCalculatorIntegrationTest {
 
 		assertEquals(1, basket.getDiscounts().size());
 		Discount discount = basket.getDiscounts().get(0);
+        assertEquals(product, discount.getProduct());
 		assertEquals(30D, discount.getAmount(), 0.01D);
 		assertEquals("10% off", discount.getDescription());
 	}
