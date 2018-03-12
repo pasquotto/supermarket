@@ -25,7 +25,22 @@ This file contains all the products and it's unit price of the supermarket.
 This file contains the rules to apply promotions over the products on the basket.
 
 
-TODO: Add an exemple of the file
+This is a role that can be used
+
+```
+rule "Product A 3 for 130"
+    when
+
+        $b : Basket( getQuantityOfProduct("A") >= 3);
+    then
+        $b.addDiscount(
+                new Discount($b.getProduct("A"),
+                        // 20p discount for every 3 products
+                        fixedDiscountPerQuantity($b.getQuantityOfProduct("A"), 3, 20),
+                        "3 for 130"
+        ));
+end
+```
 
 ## Run:
 ` java -jar target/supermarket-0.0.1-SNAPSHOT.jar {List of Products in the basket}`
